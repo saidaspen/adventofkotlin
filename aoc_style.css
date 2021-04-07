@@ -1,0 +1,29 @@
+/* Sans-serif for most content. */
+input ~ span:before,
+.leaderboard-entry,
+.privboard-row {
+    font-family: "Source Code Pro", monospace;
+    letter-spacing: 1px;
+}
+
+/* Emphasis = bold, instead of glowy. */
+body * {
+    text-shadow: none !important;
+
+}
+article em {
+    font-weight: bold;
+    color: #22ff68
+}
+
+/* Fade out less important content. */
+main > article + p,
+main > article:not(:last-of-type) {
+    opacity: 0.8;
+}
+
+code {
+    font-family: "Source Code Pro", monospace;
+    letter-spacing: 1.px;
+    color: #ff6e6e
+}
