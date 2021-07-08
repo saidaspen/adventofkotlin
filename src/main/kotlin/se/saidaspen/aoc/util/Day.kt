@@ -136,8 +136,8 @@ abstract class Day(private val year: Int, private val day: Int) {
     }
 
     private fun submit(part: PART, answer: String): String {
-        val sessionCookie = System.getenv("session")
-        if (sessionCookie == "" || sessionCookie == null) {
+        val sessionCookie = getSession()
+        if (sessionCookie == "") {
             throw RuntimeException("No session environment variable set.")
         } else {
             val client = HttpClient.newBuilder().build()

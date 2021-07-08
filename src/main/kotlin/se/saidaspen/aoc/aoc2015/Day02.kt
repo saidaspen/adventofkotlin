@@ -1,4 +1,4 @@
-package se.saidaspen.aoc.`2015`
+package se.saidaspen.aoc.aoc2015
 
 import se.saidaspen.aoc.util.Day
 import se.saidaspen.aoc.util.ints
