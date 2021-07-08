@@ -104,4 +104,13 @@ fun getSession() :String {
     }
 }
 
+
+fun <E> MutableList<E>.removeFirst(length: Int): MutableList<E> {
+    val firstN = subList(0, length).toMutableList()
+    if (length in 1..size) {
+        subList(0, length).clear()
+    }
+    return firstN
+}
+
 fun readFileInputNoTrim(name: String) = File(ClassLoader.getSystemResource(name).file).readText()
