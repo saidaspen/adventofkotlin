@@ -25,11 +25,20 @@ fun String.runCommand(workingDir: File) {
         .waitFor(60, TimeUnit.MINUTES)
 }
 
+fun isJUnitTest(): Boolean {
+    for (element in Thread.currentThread().stackTrace) {
+        if (element.className.startsWith("org.junit.")) {
+            return true
+        }
+    }
+    return false
+}
 
 fun getInput(year: Int, day: Int, block: Boolean): String {
-    println("$ANSI_BLUE_BACKGROUND$ANSI_BLACK                             $ANSI_RESET")
-    println("$ANSI_BLUE_BACKGROUND$ANSI_BLACK Advent of code $year day $day  $ANSI_RESET")
-    println("$ANSI_BLUE_BACKGROUND$ANSI_BLACK                             $ANSI_RESET")
+    if (isJUnitTest()) return ""
+    println("                             $ANSI_RESET")
+    println("Advent of code $year day $day  $ANSI_RESET")
+    println("$ANSI_BLACK                             $ANSI_RESET")
     val relTime = LocalDateTime.of(year, Month.DECEMBER, day, 6, 0)
     if (LocalDateTime.now().isBefore(relTime)) {
         println("⏸️ Waiting to download $year-$day")

@@ -35,19 +35,28 @@ abstract class Day(private val year: Int, private val day: Int) {
 
     var input = getInput(year, day, true)
 
-
     abstract fun part1(): Any
     abstract fun part2(): Any
+
+    fun part1(input: String): Any {
+        this.input = input
+        return part1()
+    }
+
+    fun part2(input: String): Any {
+        this.input = input
+        return part2()
+    }
 
     fun run() {
         val result1 = part1().toString()
         if (result1.isEmpty()) return
-        println("$ANSI_BLUE_BACKGROUND$ANSI_BLACK Part 1: $ANSI_BOLD$result1 $ANSI_RESET")
+        println("$ANSI_BLACK Part 1: $ANSI_BOLD$result1 $ANSI_RESET")
         val complete1 = handleSubmit(result1, PART.ONE)
         val result2 = part2().toString()
         if (result2.isEmpty()) return
         if (complete1 && result2.isNotEmpty()) {
-            println("$ANSI_BLUE_BACKGROUND$ANSI_BLACK Part 2: $ANSI_BOLD$result2 $ANSI_RESET")
+            println("$ANSI_BLACK Part 2: $ANSI_BOLD$result2 $ANSI_RESET")
             handleSubmit(result2, PART.TWO)
         }
     }
