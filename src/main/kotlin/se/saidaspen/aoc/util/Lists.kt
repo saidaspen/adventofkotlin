@@ -1,5 +1,8 @@
 package se.saidaspen.aoc.util
 
+import java.util.*
+import kotlin.collections.ArrayDeque
+
 fun <V> List<V>.permutations(): Sequence<List<V>> {
     val underlying = this
     val factorials = IntArray(underlying.size + 1)
@@ -25,3 +28,7 @@ fun <V> List<V>.permutations(): Sequence<List<V>> {
 }
 
 fun <E> List<E>.toArrayDeque() = ArrayDeque(this)
+
+fun <E> MutableList<E>.rotate(i: Int) {
+    Collections.rotate(this, i)
+}

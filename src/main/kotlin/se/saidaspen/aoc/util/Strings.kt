@@ -41,3 +41,6 @@ fun String.lastIndexOfBefore(s: String, idx: Int): Int {
     val result =  this.length - this.reversed().indexOf(s, this.length - idx)-1
     return if (result < this.length) result else -1
 }
+
+fun String.sortChars() = this.toList().sorted().joinToString("")
+
