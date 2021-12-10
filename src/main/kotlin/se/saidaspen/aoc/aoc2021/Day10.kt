@@ -7,8 +7,10 @@ fun main() = Day10.run()
 object Day10 : Day(2021, 10) {
 
     private var chunkDelims = mapOf('(' to ')', '{' to '}', '[' to ']', '<' to '>')
+    private var scoreErrorChar = mapOf(')' to 3, '}' to 1197, ']' to 57, '>' to 25137)
+    private var scoreClosings = mapOf(')' to 1, '}' to 3, ']' to 2, '>' to 4)
 
-    override fun part1() =  input.lines().map { check(it) }.sumOf { scoreErrorChar(it.first) }
+    override fun part1() =  input.lines().map { check(it) }.sumOf { scoreErrorChar.getOrDefault(it.first, 0) }
     override fun part2(): Any {
         val sortedScores = input.lines()
             .map { check(it) }
@@ -16,26 +18,6 @@ object Day10 : Day(2021, 10) {
             .map { scoreOfEnding(it.second) }
             .sortedDescending()
         return sortedScores[sortedScores.size/2]
-    }
-
-    private fun scoreErrorChar(c : Char?): Int {
-        return when (c) {
-            ')' -> 3
-            ']' -> 57
-            '}' -> 1197
-            '>' -> 25137
-            else -> 0
-        }
-    }
-
-    private fun scoreClosingChar(seChar: Char): Int {
-        return when (seChar) {
-            ')' -> 1
-            ']' -> 2
-            '}' -> 3
-            '>' -> 4
-            else -> 0
-        }
     }
 
     private fun check(s: String): P<Char?, List<Char>> {
@@ -53,7 +35,7 @@ object Day10 : Day(2021, 10) {
         return P(null, chunkOrder.map { chunkDelims[it]!! }.reversed())
     }
 
-    private fun scoreOfEnding(delims: List<Char>) =  delims.fold(0L) { acc, e -> acc * 5 + scoreClosingChar(e) }
+    private fun scoreOfEnding(delims: List<Char>) =  delims.fold(0L) { acc, e -> acc * 5 + scoreClosings.getOrDefault(e, 0) }
 }
 
 

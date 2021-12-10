@@ -45,10 +45,3 @@ object Day09 : Day(2021, 9) {
         return if (map[lowestN].toString().toInt() < map[p].toString().toInt()) lowestN else p
     }
 }
-
-
-
-
-
-
-
