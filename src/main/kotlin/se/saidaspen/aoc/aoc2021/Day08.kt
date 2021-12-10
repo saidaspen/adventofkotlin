@@ -20,12 +20,19 @@ object Day08 : Day(2021, 8) {
     )
 
     private var permutations = "abcdefg".toList().permutations().map { it.joinToString("") }
-    private val outputs = input.lines()
-        .map { P(it.split("|")[0], it.split("|")[1]) } // Split into input, output digits
-        .map { translate(solve(it.first), it.second) }
 
-    override fun part1() =  outputs.sumBy { it.toCharArray().filter { c -> c == '1' || c == '4' || c == '7' || c == '8' }.size }
-    override fun part2() =  outputs.sumOf { it.toInt() }
+    override fun part1() : Any {
+        val outputs = input.lines()
+            .map { P(it.split("|")[0], it.split("|")[1]) } // Split into input, output digits
+            .map { translate(solve(it.first), it.second) }
+        return outputs.sumBy { it.toCharArray().filter { c -> c == '1' || c == '4' || c == '7' || c == '8' }.size }
+    }
+    override fun part2() : Any {
+        val outputs = input.lines()
+            .map { P(it.split("|")[0], it.split("|")[1]) } // Split into input, output digits
+            .map { translate(solve(it.first), it.second) }
+        return outputs.sumOf { it.toInt() }
+    }
 
     private fun translate(t: String, inp: String): String {
         return inp.split(" ")
