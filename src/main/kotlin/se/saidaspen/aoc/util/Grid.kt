@@ -1,6 +1,7 @@
 package se.saidaspen.aoc.util
 
 import java.util.*
+import kotlin.math.max
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 class Grid<T>(val default: T) {
@@ -22,10 +23,9 @@ class Grid<T>(val default: T) {
         }
         if (y >= height) {
             val rowsToAdd = y+1 - height
-            val newWidth = if (width == 0) y+1 else width
+            val newWidth = max(x+1, width)
             grid.addAll(MutableList(rowsToAdd){ MutableList(newWidth){default} })
         }
-
         grid[y][x] = value
     }
 
