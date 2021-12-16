@@ -29,6 +29,9 @@ fun <V> List<V>.permutations(): Sequence<List<V>> {
 
 fun <E> List<E>.toArrayDeque() = ArrayDeque(this)
 
+fun <E> List<E>.histo() = this.groupingBy { it }.eachCount()
+
+
 fun <E> MutableList<E>.rotate(i: Int) {
     Collections.rotate(this, i)
 }

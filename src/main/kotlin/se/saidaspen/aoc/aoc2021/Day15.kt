@@ -1,6 +1,7 @@
 package se.saidaspen.aoc.aoc2021
 
 import se.saidaspen.aoc.util.*
+import java.util.*
 
 fun main() = Day15.run()
 
@@ -18,11 +19,11 @@ object Day15 : Day(2021, 15) {
         // Keep track of cheapest cost to move to any given point
         val costs = mutableMapOf<P<Int, Int>, Int>()
         // Stack of points to visit next together with their cost (to keep the cost here is optimization, to avoid having to do some look-ups in costs map)
-        var queue = mutableListOf<P<P<Int, Int>, Int>>()
+        val queue = PriorityQueue<P<P<Int, Int>, Int>>(compareBy { it.second })
         costs[start] = 0
         queue.add(P(start, 0))
         while (queue.isNotEmpty()) {
-            val (pos, cost) = queue.removeAt(0)
+            val (pos, cost) = queue.poll()
             val adjacentPoints = listOf(pos + P(-1, 0), pos + P(0, -1), pos + P(0, 1), pos + P(1, 0)).filter { map.containsKey(it) }
             for (n in adjacentPoints) {
                 val newCost = map[n]!! + cost // The cost of getting to n through the path we currently are investigating
@@ -34,8 +35,6 @@ object Day15 : Day(2021, 15) {
                     costs[n] = newCost
                     queue.add(P(n, newCost))
                 }
-                // We sort the queue. We always want to investigate the cheapest first.
-                queue = queue.sortedBy { it.second }.toMutableList()
             }
         }
         return costs[end]!!
