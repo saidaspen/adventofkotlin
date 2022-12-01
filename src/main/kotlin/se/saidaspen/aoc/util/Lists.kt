@@ -3,7 +3,6 @@ package se.saidaspen.aoc.util
 import java.util.*
 import kotlin.collections.ArrayDeque
 
-
 fun <E> permutations(list: List<E>, length: Int? = null): Sequence<List<E>> = sequence {
     val n = list.size
     val r = length ?: list.size
@@ -64,10 +63,5 @@ fun <V> List<V>.permutations(): Sequence<List<V>> {
 }
 
 fun <E> List<E>.toArrayDeque() = ArrayDeque(this)
-
 fun <E> List<E>.histo() = this.groupingBy { it }.eachCount()
-
-
-fun <E> MutableList<E>.rotate(i: Int) {
-    Collections.rotate(this, i)
-}
+fun <E> MutableList<E>.rotate(i: Int) = Collections.rotate(this, i)
