@@ -1,10 +1,12 @@
 package se.saidaspen.aoc.util
 
 import java.io.File
+import java.math.BigInteger
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
+import java.security.MessageDigest
 import java.time.LocalDateTime
 import java.time.Month
 import java.time.temporal.ChronoUnit
@@ -95,6 +97,7 @@ private fun download(year: Int, day: Int): String {
         val client = HttpClient.newBuilder().build()
         val request = HttpRequest.newBuilder()
             .setHeader("Cookie", "session=$sessionCookie")
+            .setHeader("User-Agent", "github.com/saidaspen/adventofkotlin, Said Aspen, aoc@saidaspen.se")
             .uri(URI.create("https://adventofcode.com/${year}/day/${day}/input"))
             .build()
         val response = client.send(request, HttpResponse.BodyHandlers.ofString())
@@ -113,6 +116,10 @@ fun getSession() :String {
     }
 }
 
+fun md5(input:String): String {
+    val md = MessageDigest.getInstance("MD5")
+    return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')
+}
 
 fun <E> MutableList<E>.removeFirst(length: Int): MutableList<E> {
     val firstN = subList(0, length).toMutableList()
