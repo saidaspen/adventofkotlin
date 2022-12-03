@@ -39,7 +39,7 @@ fun isJUnitTest(): Boolean {
 fun getInput(year: Int, day: Int, block: Boolean): String {
     if (isJUnitTest()) return ""
     println("                             $ANSI_RESET")
-    println("Advent of code $year day $day  $ANSI_RESET")
+    println("Advent of code $year day $day")
     println("$ANSI_BLACK                             $ANSI_RESET")
     val relTime = LocalDateTime.of(year, Month.DECEMBER, day, 6, 0)
     if (LocalDateTime.now().isBefore(relTime)) {

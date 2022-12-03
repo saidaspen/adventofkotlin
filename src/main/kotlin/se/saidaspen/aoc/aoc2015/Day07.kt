@@ -11,11 +11,7 @@ interface Wire {
 
 object Day07 : Day(2015, 7) {
     override fun part1(): Any {
-
-
-        println(wireNames)
-        var wires = mutableMapOf<String, Wire>()
-        return wires["a"]!!
+        return ""
     }
 
     override fun part2(): Any {

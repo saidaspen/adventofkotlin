@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test-junit"))
+    implementation(kotlin("script-runtime"))
 }
 
 tasks.test {
