@@ -38,9 +38,7 @@ fun isJUnitTest(): Boolean {
 
 fun getInput(year: Int, day: Int, block: Boolean): String {
     if (isJUnitTest()) return ""
-    println("                             $ANSI_RESET")
     println("Advent of code $year day $day")
-    println("$ANSI_BLACK                             $ANSI_RESET")
     val relTime = LocalDateTime.of(year, Month.DECEMBER, day, 6, 0)
     if (LocalDateTime.now().isBefore(relTime)) {
         println("⏸️ Waiting to download $year-$day")
@@ -52,9 +50,6 @@ fun getInput(year: Int, day: Int, block: Boolean): String {
         }
         val secondsLeft = LocalDateTime.now().until(relTime, ChronoUnit.SECONDS)
         output = "$secondsLeft seconds left."
-        if (secondsLeft < 100) {
-            output = ANSI_RED_BACKGROUND + ANSI_YELLOW + output + ANSI_RESET
-        }
         print(output)
         Thread.sleep(1000)
     }
@@ -67,7 +62,7 @@ fun getInput(year: Int, day: Int, block: Boolean): String {
     val fileName = "$year${"%02d".format(day)}"
     val fResource = inputsFolder.resolve(fileName)
     if (!fResource.exists()) {
-        println("$ANSI_BLUE_BACKGROUND$ANSI_BLACK  \uD83D\uDCE1️  Downloading input for $year $day  $ANSI_RESET")
+        println("Downloading input for $year $day")
         val text = download(year, day)
         if (text.contains("Please don't repeatedly")) {
             throw RuntimeException("Too early to request input")

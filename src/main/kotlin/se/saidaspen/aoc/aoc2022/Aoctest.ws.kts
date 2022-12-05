@@ -1,5 +1,8 @@
+import se.saidaspen.aoc.util.getInput
+import se.saidaspen.aoc.util.ints
 
-val ANSI_PURPLE_BACKGROUND = "\u001B[45m"
-println("$ANSI_PURPLE_BACKGROUND Can I get this text to show purple?")
 
+var input = getInput(2022, 1, true)
+var sum = input.split("\n\n").map { ints(it).sum() }.maxOf { it }
 
+sum

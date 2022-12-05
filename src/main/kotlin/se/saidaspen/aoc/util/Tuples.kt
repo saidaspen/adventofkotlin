@@ -15,3 +15,8 @@ operator fun Int.times(inp: P<Int, Int>?): P<Int, Int> = P(inp!!.first * this, i
 operator fun Int.times(inp: P3<Int>?): P3<Int> = P3(inp!!.x * this, inp.y * this, inp.z * this)
 operator fun Int.times(inp: P4<Int>?): P4<Int> = P4(inp!!.x * this, inp.y * this, inp.z * this, inp.w * this)
 
+val <A, B> Pair<A, B>.x: A
+    get() {return this.first}
+
+val <A, B> Pair<A, B>.y: B
+    get() {return this.second}

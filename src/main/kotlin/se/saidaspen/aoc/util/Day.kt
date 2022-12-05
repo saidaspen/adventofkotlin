@@ -8,29 +8,6 @@ import java.net.http.HttpResponse
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
-
-const val ANSI_RESET = "\u001B[0m"
-const val ANSI_BLACK = "\u001B[30m"
-const val ANSI_BOLD = "\u001B[1m"
-const val ANSI_RED = "\u001B[31m"
-const val ANSI_GREEN = "\u001B[32m"
-const val ANSI_BRIGHT_GREEN = "\u001B[92m"
-const val ANSI_YELLOW = "\u001B[33m"
-const val ANSI_BLUE = "\u001B[34m"
-const val ANSI_PURPLE = "\u001B[35m"
-const val ANSI_CYAN = "\u001B[36m"
-const val ANSI_WHITE = "\u001B[37m"
-const val ANSI_BLACK_BACKGROUND = "\u001B[40m"
-const val ANSI_BRIGHT_BLACK_BACKGROUND = "\u001B[100m"
-const val ANSI_RED_BACKGROUND = "\u001B[41m"
-const val ANSI_GREEN_BACKGROUND = "\u001B[42m"
-const val ANSI_YELLOW_BACKGROUND = "\u001B[43m"
-const val ANSI_BLUE_BACKGROUND = "\u001B[44m"
-const val ANSI_PURPLE_BACKGROUND = "\u001B[45m"
-const val ANSI_CYAN_BACKGROUND = "\u001B[46m"
-const val ANSI_WHITE_BACKGROUND = "\u001B[47m"
-const val ANSI_BRIGHT_WHITE_BACKGROUND = "\u001B[107m"
-
 abstract class Day(private val year: Int, private val day: Int) {
 
     var input = getInput(year, day, true)
@@ -51,12 +28,12 @@ abstract class Day(private val year: Int, private val day: Int) {
     fun run() {
         val result1 = part1().toString()
         if (result1.isEmpty()) return
-        println("$ANSI_BLACK Part 1: $ANSI_BOLD$result1 $ANSI_RESET")
+        println("Part 1: $result1")
         val complete1 = handleSubmit(result1, PART.ONE)
         val result2 = part2().toString()
         if (result2.isEmpty()) return
         if (complete1 && result2.isNotEmpty()) {
-            println("$ANSI_BLACK Part 2: $ANSI_BOLD$result2 $ANSI_RESET")
+            println("Part 2: $result2 ")
             handleSubmit(result2, PART.TWO)
         }
     }
@@ -67,7 +44,7 @@ abstract class Day(private val year: Int, private val day: Int) {
         val prevRight = status.submissions.firstOrNull { it.result == Result.RIGHT }
         if (prevRight != null) {
             if (prevRight.value != value) {
-                println("$ANSI_RED_BACKGROUND${ANSI_BLACK}Value $ANSI_BOLD${value}$ANSI_RESET$ANSI_RED_BACKGROUND$ANSI_BLACK NOT EQUAL TO previous right value: ${prevRight.value}$ANSI_RESET")
+                println("Value $value NOT EQUAL TO previous right value: ${prevRight.value}")
             }
             return true
         }
@@ -75,12 +52,12 @@ abstract class Day(private val year: Int, private val day: Int) {
             return true
 
         if (status.submissions.any { it.value == value }) {
-            println("$ANSI_RED_BACKGROUND$ANSI_BLACK Cannot submit. Already submitted value $value for $year-$day Part $part$ANSI_RESET")
+            println("Cannot submit. Already submitted value $value for $year-$day Part $part")
             return false
         }
         val range = status.getRange()
         if (range != null && value.toLongOrNull() == null) {
-            println("$ANSI_RED_BACKGROUND$ANSI_BLACK Cannot submit. $value is not a numeric value. Expected due to previous submissions. Answer will be in range: $range for $year-$day Part $part$ANSI_RESET")
+            println("Cannot submit. $value is not a numeric value. Expected due to previous submissions. Answer will be in range: $range for $year-$day Part $part")
             return false
         }
         if (range != null && !range.contains(value.toLong())) {
@@ -90,25 +67,25 @@ abstract class Day(private val year: Int, private val day: Int) {
                 range.last == Long.MAX_VALUE -> "greater than ${range.first}"
                 else -> "in range $range"
             }
-            println("$ANSI_RED_BACKGROUND$ANSI_BLACK Cannot submit $value is not in expected range: $rangeString for $year-$day Part $part $ANSI_RESET")
+            println("Cannot submit $value is not in expected range: $rangeString for $year-$day Part $part")
             return false
         }
         if (status.submitEarliest.isAfter(LocalDateTime.now())) {
-            println("$ANSI_BLUE_BACKGROUND$ANSI_BLACK Cannot submit value until ${status.submitEarliest}. Do you want to submit $value for $year-$day Part $part as soon as it is allowed? $ANSI_RESET")
+            println("Cannot submit value until ${status.submitEarliest}. Do you want to submit $value for $year-$day Part $part as soon as it is allowed?")
             readLine()
             while (status.submitEarliest.isAfter(LocalDateTime.now())) {
                 Thread.sleep(500)
             }
         } else {
-            println("$ANSI_BLUE_BACKGROUND$ANSI_BLACK Submit $value for $year-$day Part $part? $ANSI_RESET")
+            println("Submit $value for $year-$day Part $part?")
             readLine()
         }
         val response = submit(part, value)
         val (submission, earliestSubmit) = handleResponse(value, response)
         if (submission.result == Result.RIGHT){
-            println("Submission $ANSI_BOLD${value}$ANSI_RESET for Part $part is: $ANSI_GREEN_BACKGROUND $ANSI_BOLD RIGHT ✅  $ANSI_RESET")
+            println("Submission $${value} for Part $part is:  RIGHT ✅ ")
         } else {
-            println("Submission $ANSI_BOLD${value}$ANSI_RESET for Part $part is: $ANSI_RED_BACKGROUND $ANSI_BOLD WRONG ❌  $ANSI_RESET")
+            println("Submission $value for Part $part is: WRONG ❌ ")
         }
         val until = LocalDateTime.now().until(earliestSubmit, ChronoUnit.SECONDS)
         if (until > 0)
@@ -236,10 +213,10 @@ abstract class Day(private val year: Int, private val day: Int) {
 
         fun getRange(): LongRange? {
             if (!submissions.any { it.value.toLongOrNull() != null }) return null
-            val lo = submissions.filter { it.result == Result.TOO_LOW }.map { it.value.toLong() }.maxOrNull()
-                    ?: Long.MIN_VALUE
-            val hi = submissions.filter { it.result == Result.TOO_HIGH }.map { it.value.toLong() }.minOrNull()
-                    ?: Long.MAX_VALUE
+            val lo = submissions.filter { it.result == Result.TOO_LOW }.maxOfOrNull { it.value.toLong() }
+                ?: Long.MIN_VALUE
+            val hi = submissions.filter { it.result == Result.TOO_HIGH }.minOfOrNull { it.value.toLong() }
+                ?: Long.MAX_VALUE
             return LongRange(lo + 1, hi - 1)
         }
 

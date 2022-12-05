@@ -24,7 +24,7 @@ object Day06 : Day(2018, 6) {
         }
         val largestArea = (coords.indices).maxOf { areaOf(it, grid) }
         for ((i, p) in coords.withIndex()) {
-            grid[p] = ANSI_RED + i.toString() + ANSI_RESET
+            grid[p] = i.toString()
         }
         return largestArea
     }
