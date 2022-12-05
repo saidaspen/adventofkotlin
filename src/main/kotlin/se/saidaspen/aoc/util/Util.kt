@@ -69,7 +69,7 @@ fun getInput(year: Int, day: Int, block: Boolean): String {
         }
         fResource.writeText(text)
     }
-    return fResource.readText().trim()
+    return fResource.readText().trimEnd()
 }
 
 private fun inputFolder(): File {
