@@ -124,4 +124,12 @@ fun <E> MutableList<E>.removeFirst(length: Int): MutableList<E> {
     return firstN
 }
 
+fun <E> MutableList<E>.removeLast(length: Int): MutableList<E> {
+    val lastN = subList(size - length, this.size).toMutableList()
+    if (length in 1..size) {
+        subList(size - length, this.size).clear()
+    }
+    return lastN
+}
+
 fun readFileInputNoTrim(name: String) = File(ClassLoader.getSystemResource(name).file).readText()
