@@ -18,6 +18,8 @@ fun getInput(year: Int, day: Int): String {
     return getInput(year, day, false)
 }
 
+fun ByteArray.toHex() = joinToString("") { "%02x".format(it) }
+
 fun String.runCommand(workingDir: File) {
     ProcessBuilder(*split(" ").toTypedArray())
         .directory(workingDir)
@@ -38,7 +40,7 @@ fun isJUnitTest(): Boolean {
 
 fun getInput(year: Int, day: Int, block: Boolean): String {
     if (isJUnitTest()) return ""
-    println("Advent of code $year day $day")
+//    println("Advent of code $year day $day")
     val relTime = LocalDateTime.of(year, Month.DECEMBER, day, 6, 0)
     if (LocalDateTime.now().isBefore(relTime)) {
         println("⏸️ Waiting to download $year-$day")

@@ -1,16 +1,17 @@
 package se.saidaspen.aoc.aoc2016
 
 import se.saidaspen.aoc.util.*
-import java.lang.StringBuilder
 
 fun main() = Day09.run()
 
 object Day09 : Day(2016, 9) {
 
     override fun part1(): Any {
-        println(input)
-        val sb = decompress(input, 1)
-        return sb
+        return decompress(input, 1)
+    }
+
+    override fun part2(): Any {
+        return decompress(input, 2)
     }
 
     private fun decompress(inp: String, version: Int): Long {
@@ -40,9 +41,4 @@ object Day09 : Day(2016, 9) {
         return length
     }
 
-    override fun part2(): Any {
-        println(input)
-        val sb = decompress(input, 2)
-        return sb
-    }
 }

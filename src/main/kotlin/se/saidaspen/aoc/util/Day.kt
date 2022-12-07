@@ -38,6 +38,12 @@ abstract class Day(private val year: Int, private val day: Int) {
         }
     }
 
+    public fun prevCorrectValue(part: PART): String? {
+        val status = getStatus(part)
+        val prevRight = status.submissions.firstOrNull { it.result == Result.RIGHT }
+        return prevRight?.value
+    }
+
     private fun handleSubmit(value: String, part: PART): Boolean {
         val status = getStatus(part)
 

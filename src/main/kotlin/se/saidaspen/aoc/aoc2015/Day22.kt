@@ -25,7 +25,6 @@ object Day22 : Day(2015, 22) {
     data class Effect(val spell: Char, var left: Int)
 
     override fun part1(): Any {
-        println(input)
         val results = mutableMapOf<String, Int>()
         while(results.values.minOrNull() == null) {
             for (i in 0..4_000_000) {
@@ -118,7 +117,6 @@ object Day22 : Day(2015, 22) {
     }
 
     override fun part2(): Any {
-        println(input)
         val results = mutableMapOf<String, Int>()
         while(results.values.minOrNull() == null) {
             for (i in 0..4_000_000) {

@@ -54,7 +54,7 @@ object Day08 : Day(2016, 8) {
             }
         }
         grid.scale(5, 6)
-        println(grid)
+//        println(grid)
         return "RURUCEOEIL"
     }
 }

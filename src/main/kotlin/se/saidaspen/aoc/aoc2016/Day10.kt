@@ -57,7 +57,6 @@ object Day10 : Day(2016, 10) {
             val lowVal = giver.chips.minOrNull()!!
             val highVal = giver.chips.maxOrNull()!!
             if (lowVal == 17 && highVal == 61) {
-                println("Bot ${giver.nr} is responsible for comparing value-61 microchips with value-17 microchips")
                 return giver.nr
             }
             giver.low!!.receive(lowVal)
