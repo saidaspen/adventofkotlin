@@ -5,6 +5,18 @@ package se.saidaspen.aoc.util
 import java.util.*
 import kotlin.math.max
 
+fun toMapInt(input: String): MutableMap<P<Int, Int>, Int> {
+    val lines = input.lines()
+    val map = mutableMapOf<P<Int, Int>, Int>()
+    for (line in lines.indices) {
+        val lineChars = lines[line].toCharArray()
+        for (col in lineChars.indices) {
+            map[P(col, line)] = lineChars[col].toString().toInt()
+        }
+    }
+    return map
+}
+
 fun toMap(input: String): MutableMap<P<Int, Int>, Char> {
     val lines = input.lines()
     val map = mutableMapOf<P<Int, Int>, Char>()

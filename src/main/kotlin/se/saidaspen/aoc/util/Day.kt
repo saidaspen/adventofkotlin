@@ -89,7 +89,7 @@ abstract class Day(private val year: Int, private val day: Int) {
         val response = submit(part, value)
         val (submission, earliestSubmit) = handleResponse(value, response)
         if (submission.result == Result.RIGHT){
-            println("Submission $${value} for Part $part is:  RIGHT ✅ ")
+            println("Submission $value for Part $part is:  RIGHT ✅ ")
         } else {
             println("Submission $value for Part $part is: WRONG ❌ ")
         }
