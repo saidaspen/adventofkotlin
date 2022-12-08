@@ -7,45 +7,27 @@ fun main() = Day08.run()
 object Day08 : Day(2022, 8) {
 
     override fun part1(): Any {
-        return 1849
-        var map = toMapInt(input)
+        val map = toMapInt(input)
         var visible = 0
         for (p in map.keys) {
-            var left = map.keys.filter { it.y == p.y && it.x < p.x}.all { map[it]!! < map[p]!! }
-            if (left) {
+            if (map.keys.filter { it.y == p.y && it.x < p.x }.any { map[it]!! >= map[p]!! }) {
                 visible++
                 continue
             }
-            var right = map.keys.filter { it.y == p.y && it.x > p.x}.all { map[it]!! < map[p]!! }
-            if (right) {
+            if (map.keys.filter { it.y == p.y && it.x > p.x }.all { map[it]!! < map[p]!! }) {
                 visible++
                 continue
             }
-            var top = map.keys.filter { it.x == p.x && it.y < p.y}.all { map[it]!! < map[p]!! }
-            if (top) {
+            if (map.keys.filter { it.x == p.x && it.y < p.y }.all { map[it]!! < map[p]!! }) {
                 visible++
                 continue
             }
-            var bottom = map.keys.filter { it.x == p.x && it.y > p.y}.all { map[it]!! < map[p]!! }
-            if (bottom) {
+            if (map.keys.filter { it.x == p.x && it.y > p.y }.all { map[it]!! < map[p]!! }) {
                 visible++
                 continue
             }
         }
-
         return visible
-    }
-
-    fun toMapInt(input: String): MutableMap<P<Int, Int>, Int> {
-        val lines = input.lines()
-        val map = mutableMapOf<P<Int, Int>, Int>()
-        for (line in lines.indices) {
-            val lineChars = lines[line].toCharArray()
-            for (col in lineChars.indices) {
-                map[P(col, line)] = lineChars[col].toString().toInt()
-            }
-        }
-        return map
     }
 
     override fun part2(): Any {
