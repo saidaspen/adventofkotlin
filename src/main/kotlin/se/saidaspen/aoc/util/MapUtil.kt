@@ -34,17 +34,17 @@ fun neighbors(i: P<Int, Int>) = listOf(
         i + P(0, -1), i + P(0, 1),
         i + P(1, -1), i + P(1, 0), i + P(1, 1))
 
-fun Pair<Int, Int>.neighborsSimple(i: P<Int, Int>) = listOf(
-    i + P(-1, 0),
-    i + P(0, -1),
-    i + P(0, 1),
-    i + P(1, 0))
+fun Pair<Int, Int>.neighborsSimple() = listOf(
+    this + P(-1, 0),
+    this + P(0, -1),
+    this + P(0, 1),
+    this + P(1, 0))
 
-fun neighborsSimple(i: P<Int, Int>) = listOf(
-    i + P(-1, 0),
-    i + P(0, -1),
-    i + P(0, 1),
-    i + P(1, 0))
+//fun neighborsSimple(i: P<Int, Int>) = listOf(
+//    i + P(-1, 0),
+//    i + P(0, -1),
+//    i + P(0, 1),
+//    i + P(1, 0))
 
 fun printMap(map: Map<P<Int, Int>, Char?>) {
     print("\u001b[2J") // Clear screen

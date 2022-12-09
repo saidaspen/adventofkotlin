@@ -11,7 +11,7 @@ object Day13 : Day(2016, 13) {
 
     override fun part1(): Any {
         val next: (P<Int, Int>) -> Iterable<P<Int, Int>> = {
-            val neighbors = neighborsSimple(it)
+            val neighbors = it.neighborsSimple()
             val next = neighbors.filter { n -> n.x >= 0 && n.y >= 0 }.filter { n -> !isWall(n) }
             next
         }
@@ -29,7 +29,7 @@ object Day13 : Day(2016, 13) {
         var cur = setOf(P(1, 1))
         repeat(50) {
             cur = cur.flatMap {
-                neighborsSimple(it)
+                it.neighborsSimple()
                     .filter { n -> n.x >= 0 && n.y >= 0 }
                     .filter { n -> !isWall(n) } }
                 .toSet()

@@ -8,10 +8,9 @@ import se.saidaspen.aoc.util.removeFirst
 fun main() = Day06.run()
 
 object Day06 : Day(2022, 6) {
-
-    override fun part1() = input.e().windowed(4).withIndex().first { it.value.distinct().size == 4 }.index + 4
-    override fun part2() = input.e().windowed(14).withIndex().first { it.value.distinct().size == 14 }.index + 14
-
+    private fun startMarker(len: Int) = input.e().windowed(len).withIndex().first { it.value.distinct().size == len }.index + len
+    override fun part1() = startMarker(4)
+    override fun part2() = startMarker(14)
 }
 
 

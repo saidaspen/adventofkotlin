@@ -8,7 +8,7 @@ object Day09 : Day(2021, 9) {
 
     override fun part1() : Any {
         val map = toMap(input)
-        val lowpoints = map.keys.filter { p ->  (neighborsSimple(p).mapNotNull { map[it] }.all { it.toString().toInt() > map[p].toString().toInt() })}
+        val lowpoints = map.keys.filter { p ->  (p.neighborsSimple().mapNotNull { map[it] }.all { it.toString().toInt() > map[p].toString().toInt() })}
         return lowpoints.sumOf {map[it].toString().toInt() + 1  }
     }
 
@@ -37,7 +37,7 @@ object Day09 : Day(2021, 9) {
         if (map[p].toString().toInt() == 9) {
             return null
         }
-        val lowestN =  neighborsSimple(p)
+        val lowestN =  p.neighborsSimple()
             .filter { map[it] != null }
             .filter { it.first >= 0 && it.second >= 0 }
             .filter {  map[it].toString().toInt() != 9 }
