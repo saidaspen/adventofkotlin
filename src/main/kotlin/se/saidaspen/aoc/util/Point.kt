@@ -1,5 +1,7 @@
 package se.saidaspen.aoc.util
 
+import kotlin.math.absoluteValue
+
 typealias P<A, B> = Pair<A, B>
 
 val P<Int, Any>.x: Int
@@ -9,10 +11,10 @@ val P<Any, Int>.y: Int
     get() = this.second
 
 fun Pair<Int, Int>.move(it: Char) = when (it) {
-    '^' -> this.up()
-    'v' -> this.down()
-    '<' -> this.left()
-    '>' -> this.right()
+    '^', 'U' -> this.up()
+    'v', 'D' -> this.down()
+    '<', 'L' -> this.left()
+    '>', 'R' -> this.right()
     else -> throw RuntimeException("Unsupported char")
 }
 
