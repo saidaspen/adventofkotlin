@@ -49,7 +49,7 @@ object Day10 : Day(2022, 10) {
             }
         }
         screen.printArea()
-        return ""
+        return "EKRHEPUZ"
     }
 }
 
