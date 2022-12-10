@@ -1,9 +1,6 @@
 package se.saidaspen.aoc.aoc2021
 
-import se.saidaspen.aoc.util.Day
-import se.saidaspen.aoc.util.P
-import se.saidaspen.aoc.util.ints
-import se.saidaspen.aoc.util.printMap
+import se.saidaspen.aoc.util.*
 
 fun main() = Day13.run()
 
@@ -28,7 +25,7 @@ object Day13 : Day(2021, 13) {
             val amt = ints(fold)[0]
             dots = if (dir == 'x') foldX(dots, amt) else foldY(dots, amt)
         }
-        printMap(dots.associateWith { '#' })
+        dots.associateWith { '#' }.printArea()
         return "JGAJEFKU"
     }
 

@@ -1,8 +1,7 @@
 package se.saidaspen.aoc.util
 
-import kotlin.math.absoluteValue
-
 typealias P<A, B> = Pair<A, B>
+typealias Point = P<Int, Int>
 
 val P<Int, Any>.x: Int
     get() = this.first

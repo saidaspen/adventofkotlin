@@ -4,7 +4,7 @@ import kotlin.math.sign
 
 fun main() = Dayxx.run()
 
-object Dayxx : Day(2022, 9) {
+object Dayxx : Day(2022, 11) {
 
     override fun part1(): Any {
         println(input)

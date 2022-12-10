@@ -29,10 +29,13 @@ fun toMap(input: String): MutableMap<P<Int, Int>, Char> {
     return map
 }
 
-fun neighbors(i: P<Int, Int>) = listOf(
-        i + P(-1, -1), i + P(-1, 0), i + P(-1, 1),
-        i + P(0, -1), i + P(0, 1),
-        i + P(1, -1), i + P(1, 0), i + P(1, 1))
+fun Pair<Int, Int>.neighbors()  = listOf(
+    this + P(-1, -1), this + P(-1, 0), this + P(-1, 1),
+    this + P(0, -1), this + P(0, 1),
+    this + P(1, -1), this + P(1, 0), this + P(1, 1))
+
+@JvmName("neighborsFun")
+fun neighbors(i: P<Int, Int>) = i.neighbors()
 
 fun Pair<Int, Int>.neighborsSimple() = listOf(
     this + P(-1, 0),
@@ -40,39 +43,33 @@ fun Pair<Int, Int>.neighborsSimple() = listOf(
     this + P(0, 1),
     this + P(1, 0))
 
-//fun neighborsSimple(i: P<Int, Int>) = listOf(
-//    i + P(-1, 0),
-//    i + P(0, -1),
-//    i + P(0, 1),
-//    i + P(1, 0))
+@JvmName("neighborsSimpleFun")
+fun neighborsSimple(i: P<Int, Int>) = i.neighborsSimple()
 
-fun printMap(map: Map<P<Int, Int>, Char?>) {
-    print("\u001b[2J") // Clear screen
-    var largestX = 0
-    var largestY = 0
-    for (p in map.keys) {
-        largestX = max(p.x, largestX)
-        largestY = max(p.y, largestY)
-    }
-    val lines = emptyLines(largestX, largestY)
-    for (p in map.keys) lines[p.y][p.x] = map[p]
-    render(lines)
-}
-
-private fun emptyLines(xMax: Int, yMax: Int): List<MutableList<Char?>> {
-    val lines: MutableList<MutableList<Char?>> = ArrayList()
-    for (row in 0..yMax) {
-        val r: MutableList<Char?> = ArrayList()
-        for (col in 0..xMax) r.add(' ')
-        lines.add(r)
-    }
-    return lines
-}
-
-private fun render(lines: List<MutableList<Char?>>) {
-    for (row in lines) {
-        val sb = StringBuilder()
-        for (c in row) sb.append(c)
-        println(sb)
+fun <T> Map<Point, T>.printArea(visualization: (T) -> Char = { it.toString()[0] }) {
+    val xRange = keys.minOf { it.x }..keys.maxOf { it.x }
+    val yRange = keys.minOf { it.y }..keys.maxOf { it.y }
+    for (y in yRange) {
+        for (x in xRange) {
+            val value = get(Point(x, y))
+            if (value != null) {
+                print(visualization(value))
+            } else {
+                print(" ")
+            }
+        }
+        println()
     }
 }
+
+@JvmName("printAreaBoolean")
+fun Map<Point, Boolean>.printArea() {
+    printArea { if (it) '█' else ' ' }
+}
+
+@JvmName("printAreaChar")
+fun Map<Point, Char>.printArea() {
+    printArea { it }
+}
+
+
