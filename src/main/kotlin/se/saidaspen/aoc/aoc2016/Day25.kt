@@ -9,9 +9,6 @@ object Day25 : Day(2016, 25) {
     override fun part1(): Any {
         var i = 0
         while(true) {
-            if (i % 1000 == 0){
-                print("Testing $i. ")
-            }
             val cpu = Computer()
             cpu.regs["a"] = i
             val result = cpu.run()

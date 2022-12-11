@@ -1,10 +1,13 @@
 package se.saidaspen.aoc
 
 import se.saidaspen.aoc.util.Day
+import java.time.Duration
+import java.time.temporal.TemporalUnit
 import java.util.*
+import kotlin.time.Duration.Companion.milliseconds
 
 fun main() {
-    val years = 2015..2016
+    val years = 2015..2017
     val days = 1..25
     for (year in years) {
         for (day in days) {
@@ -16,17 +19,22 @@ fun main() {
                 val prevCorrect1 = d.prevCorrectValue(Day.PART.ONE)
                 val prevCorrect2: String? = d.prevCorrectValue(Day.PART.TWO)
 
-                print("\t\tPart 1\t")
+                print("\t\tPart 1:")
                 val before1 = System.currentTimeMillis()
                 val part1Result = (prevCorrect1 == d.part1().toString())
-                val after1 = System.currentTimeMillis();
-                print(if (part1Result) formatDurationTime(after1 - before1) else "❌")
+                val after1 = System.currentTimeMillis()
+                val logMessagePart1 = if (part1Result) (after1 - before1).milliseconds.toString() else "❌"
+                var paddingLeft = " ".repeat(15-logMessagePart1.length)
+                print(paddingLeft + logMessagePart1)
 
-                print("\t\tPart 2\t")
+                var padding = " ".repeat(30 - logMessagePart1.length - paddingLeft.length)
+                print(padding + "Part 2:")
                 val before2 = System.currentTimeMillis()
                 val part2Result = ((day == 25 && prevCorrect2 == null) || prevCorrect2 == d.part2().toString())
                 val after2 = System.currentTimeMillis()
-                print(if (part2Result) formatDurationTime(after2 - before2) else "❌")
+                val logMessagePart2 = if (part2Result) "" + (after2 - before2).milliseconds.toString() else "❌"
+                paddingLeft = " ".repeat(15-logMessagePart2.length)
+                print(paddingLeft + logMessagePart2)
 
                 print("\n")
             } catch (e: ClassNotFoundException) {
@@ -36,17 +44,3 @@ fun main() {
     }
 }
 
-fun formatDurationTime(durationSeconds: Long): String {
-    var hours = 0L
-    var minutes = 0L
-    var seconds = durationSeconds
-    if (seconds >= 3600) {
-        hours = seconds / 3600
-        seconds -= hours * 3600
-    }
-    if (seconds >= 60) {
-        minutes = seconds / 60
-        seconds -= minutes * 60
-    }
-    return Formatter().format("%1\$02d:%2\$02d:%3\$02d", hours, minutes, seconds).toString()
-}

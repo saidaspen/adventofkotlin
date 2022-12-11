@@ -1,8 +1,10 @@
+package se.saidaspen.aoc.aoc2017
+
 import se.saidaspen.aoc.util.Day
 
-fun main() = Dayxx.run()
+fun main() = Day19.run()
 
-object Dayxx : Day(2022, 12) {
+object Day19 : Day(2017, 19) {
 
     override fun part1(): Any {
         println(input)
@@ -13,9 +15,3 @@ object Dayxx : Day(2022, 12) {
         return ""
     }
 }
-
-
-
-
-
-

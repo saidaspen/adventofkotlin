@@ -15,12 +15,12 @@ abstract class Day(private val year: Int, private val day: Int) {
     abstract fun part1(): Any
     abstract fun part2(): Any
 
-    fun part1(input: String): Any {
+    open fun part1(input: String): Any {
         this.input = input
         return part1()
     }
 
-    fun part2(input: String): Any {
+    open fun part2(input: String): Any {
         this.input = input
         return part2()
     }
