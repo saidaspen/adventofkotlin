@@ -1,3 +1,5 @@
+package se.saidaspen.aoc.aoc2022
+
 import se.saidaspen.aoc.util.Day
 import se.saidaspen.aoc.util.P
 
@@ -5,8 +7,9 @@ fun main() = Day13.run()
 
 object Day13 : Day(2022, 13) {
 
-    class Packet (private val fixed : Int? = null, val values : MutableList<Packet> = mutableListOf()) : Comparable<Packet> {
-        override fun toString() =  fixed?.toString() ?: ("[" + values.joinToString(",") + "]")
+    class Packet(private val fixed: Int? = null, val values: MutableList<Packet> = mutableListOf()) :
+        Comparable<Packet> {
+        override fun toString() = fixed?.toString() ?: ("[" + values.joinToString(",") + "]")
 
         override operator fun compareTo(other: Packet): Int {
             if (this.fixed != null && other.fixed != null) return this.fixed.compareTo(other.fixed)
@@ -31,15 +34,15 @@ object Day13 : Day(2022, 13) {
                     if (c.isDigit()) {
                         num += c
                     } else if (c == '[') {
-                        var j = i+1
+                        var j = i + 1
                         var cnt = 1
-                        while (cnt > 0){
+                        while (cnt > 0) {
                             if (part[j] == ']') {
                                 cnt -= 1
-                            } else if (part[j] == '['){
+                            } else if (part[j] == '[') {
                                 cnt += 1
                             }
-                            j+=1
+                            j += 1
                         }
                         val subPacket = part.substring(i, j)
                         p.values.add(parse(subPacket))
@@ -51,7 +54,7 @@ object Day13 : Day(2022, 13) {
                         p.values.add(Packet(num.toInt()))
                         num = ""
                     }
-                    i+=1
+                    i += 1
                 }
                 if (num != "") {
                     p.values.add(Packet(num.toInt()))
@@ -63,25 +66,16 @@ object Day13 : Day(2022, 13) {
 
     override fun part1(): Any {
         val packetPairs = input.split("\n\n").map { P(Packet.parse(it.lines()[0]), Packet.parse(it.lines()[1])) }
-        val tmp = packetPairs.withIndex().filter { it.value.first < it.value.second }.map { it.index + 1 }
-        return tmp.sumOf { it }
+        return packetPairs.withIndex().filter { it.value.first < it.value.second }.sumOf { it.index + 1 }
     }
 
     override fun part2(): Any {
-        val packets = input.lines().filter { it != "" }.map { Packet.parse(it) }.toMutableList()
+        val packets = input.lines().filter { it != "" }.map(Packet.Companion::parse).toMutableList()
         val divider1 = Packet.parse("[[2]]")
         val divider2 = Packet.parse("[[6]]")
         packets.add(divider1)
         packets.add(divider2)
         packets.sort()
-        return (packets.indexOf(divider1) +1) * (packets.indexOf(divider2) +1)
+        return (packets.indexOf(divider1) + 1) * (packets.indexOf(divider2) + 1)
     }
-
 }
-
-
-
-
-
-
-
