@@ -7,8 +7,8 @@ fun main() = Day13.run()
 
 object Day13 : Day(2022, 13) {
 
-    class Packet(private val fixed: Int? = null, val values: MutableList<Packet> = mutableListOf()) :
-        Comparable<Packet> {
+    class Packet(private val fixed: Int? = null, val values: MutableList<Packet> = mutableListOf()) : Comparable<Packet> {
+
         override fun toString() = fixed?.toString() ?: ("[" + values.joinToString(",") + "]")
 
         override operator fun compareTo(other: Packet): Int {
@@ -37,28 +37,19 @@ object Day13 : Day(2022, 13) {
                         var j = i + 1
                         var cnt = 1
                         while (cnt > 0) {
-                            if (part[j] == ']') {
-                                cnt -= 1
-                            } else if (part[j] == '[') {
-                                cnt += 1
-                            }
+                            if (part[j] == ']') cnt -= 1
+                            else if (part[j] == '[') cnt += 1
                             j += 1
                         }
-                        val subPacket = part.substring(i, j)
-                        p.values.add(parse(subPacket))
-                        i = j
-                        continue
-                    } else if (c == ']') {
-                        throw RuntimeException("Unexpected char ]")
+                        p.values.add(parse(part.substring(i, j)))
+                        i = j - 1
                     } else if (c == ',' && num != "") {
                         p.values.add(Packet(num.toInt()))
                         num = ""
                     }
                     i += 1
                 }
-                if (num != "") {
-                    p.values.add(Packet(num.toInt()))
-                }
+                if (num != "") p.values.add(Packet(num.toInt()))
                 return p
             }
         }

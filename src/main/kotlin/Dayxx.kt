@@ -2,9 +2,9 @@ import se.saidaspen.aoc.util.*
 
 fun main() = Dayxx.run()
 
-object Dayxx : Day(2022, 13) {
+object Dayxx : Day(2022, 14) {
 
-    override fun part1() : Any {
+    override fun part1(): Any {
         println(input)
         return ""
     }
@@ -12,10 +12,4 @@ object Dayxx : Day(2022, 13) {
     override fun part2(): Any {
         return ""
     }
-
 }
-
-
-
-
-

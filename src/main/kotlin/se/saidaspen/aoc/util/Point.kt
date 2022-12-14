@@ -1,5 +1,7 @@
 package se.saidaspen.aoc.util
 
+import kotlin.math.sign
+
 typealias P<A, B> = Pair<A, B>
 typealias Point = P<Int, Int>
 
@@ -35,4 +37,18 @@ fun rectangle(c1: P<Int, Int>, c2: P<Int, Int>): List<P<Int, Int>> {
         }
     }
     return points
+}
+
+fun Point.sign() =  Point(this.x.sign, this.y.sign)
+
+fun Point.lineTo(other: Point): List<Point> {
+    val step = (other - this).sign()
+    val line = mutableListOf<Point>()
+    var curr = this
+    while (curr != other) {
+        line.add(curr)
+        curr += step
+    }
+    line.add(curr)
+    return line
 }
