@@ -7,6 +7,9 @@ import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
+import kotlin.system.measureTimeMillis
+import kotlin.time.ExperimentalTime
+import kotlin.time.measureTimedValue
 
 abstract class Day(private val year: Int, private val day: Int) {
 
@@ -25,20 +28,25 @@ abstract class Day(private val year: Int, private val day: Int) {
         return part2()
     }
 
+    @OptIn(ExperimentalTime::class)
     fun run() {
-        val result1 = part1().toString()
+        val (result1, elapsed1) = measureTimedValue {
+            part1().toString()
+        }
         if (result1.isEmpty()) return
-        println("Part 1: $result1")
+        println(String.format("%-30s%30s", "Part 1: $result1", elapsed1))
         val complete1 = handleSubmit(result1, PART.ONE)
-        val result2 = part2().toString()
+        val (result2, elapsed2) = measureTimedValue {
+            part2().toString()
+        }
         if (result2.isEmpty()) return
         if (complete1 && result2.isNotEmpty()) {
-            println("Part 2: $result2 ")
+            println(String.format("%-30s%30s", "Part 2: $result2", elapsed2))
             handleSubmit(result2, PART.TWO)
         }
     }
 
-    public fun prevCorrectValue(part: PART): String? {
+    fun prevCorrectValue(part: PART): String? {
         val status = getStatus(part)
         val prevRight = status.submissions.firstOrNull { it.result == Result.RIGHT }
         return prevRight?.value

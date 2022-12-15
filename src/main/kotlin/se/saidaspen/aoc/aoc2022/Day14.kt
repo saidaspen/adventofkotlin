@@ -15,10 +15,11 @@ object Day14 : Day(2022, 14) {
         var currSand = source
         var cnt = 0
         while (currSand.second < maxY) {
-            directions.firstOrNull { !map.containsKey(currSand + it) }?.also { currSand += it } ?: run {
+            val dir = directions.firstOrNull { !map.containsKey(currSand + it) }
+            currSand = if (dir != null) currSand + dir else {
                 cnt += 1
                 map[currSand] = 'o'
-                currSand = source
+                source
             }
         }
         return cnt
@@ -30,14 +31,13 @@ object Day14 : Day(2022, 14) {
         var cnt = 0
         val floor = maxY + 2
         while (currSand != source || !directions.all { map.containsKey(currSand + it) }) {
-            directions.firstOrNull { !map.containsKey(currSand + it) && currSand.second + 1 < floor }
-                ?.also { currSand += it } ?: run {
+            val dir = directions.firstOrNull { !map.containsKey(currSand + it) && currSand.second + 1 < floor }
+            currSand = if (dir != null) currSand + dir else {
                 cnt += 1
                 map[currSand] = 'o'
-                currSand = source
+                source
             }
         }
         return cnt + 1
     }
 }
-

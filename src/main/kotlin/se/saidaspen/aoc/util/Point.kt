@@ -1,5 +1,6 @@
 package se.saidaspen.aoc.util
 
+import kotlin.math.abs
 import kotlin.math.sign
 
 typealias P<A, B> = Pair<A, B>
@@ -40,6 +41,10 @@ fun rectangle(c1: P<Int, Int>, c2: P<Int, Int>): List<P<Int, Int>> {
 }
 
 fun Point.sign() =  Point(this.x.sign, this.y.sign)
+
+fun Point.manhattanDistTo(other: Point): Int {
+    return abs(this.x - other.x) + abs(this.y - other.y)
+}
 
 fun Point.lineTo(other: Point): List<Point> {
     val step = (other - this).sign()
