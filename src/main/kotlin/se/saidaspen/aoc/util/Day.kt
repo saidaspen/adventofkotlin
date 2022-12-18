@@ -13,7 +13,7 @@ import kotlin.time.measureTimedValue
 
 abstract class Day(private val year: Int, private val day: Int) {
 
-    var input = getInput(year, day, true)
+    open var input = getInput(year, day, true)
 
     abstract fun part1(): Any
     abstract fun part2(): Any

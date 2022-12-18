@@ -27,7 +27,7 @@ fun main() {
                 var paddingLeft = " ".repeat(15-logMessagePart1.length)
                 print(paddingLeft + logMessagePart1)
 
-                var padding = " ".repeat(30 - logMessagePart1.length - paddingLeft.length)
+                val padding = " ".repeat(30 - logMessagePart1.length - paddingLeft.length)
                 print(padding + "Part 2:")
                 val before2 = System.currentTimeMillis()
                 val part2Result = ((day == 25 && prevCorrect2 == null) || prevCorrect2 == d.part2().toString())

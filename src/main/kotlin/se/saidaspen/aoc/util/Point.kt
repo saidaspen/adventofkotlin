@@ -25,6 +25,10 @@ fun Pair<Int, Int>.up() = P(this.first, this.second + 1)
 fun Pair<Int, Int>.left() = P(this.first - 1, this.second)
 fun Pair<Int, Int>.right() = P(this.first + 1, this.second)
 
+operator fun Pair<Int, Int>.times(fact: Int): Pair<Int, Int> {
+    return P(this.x * fact, this.y * fact)
+}
+
 fun rectangle(it: P<P<Int, Int>, P<Int, Int>>) = rectangle(it.first, it.second)
 fun rectangle(c1: P<Int, Int>, c2: P<Int, Int>): List<P<Int, Int>> {
     val leftMost = if (c1.x <= c2.x) c1.x else c2.x

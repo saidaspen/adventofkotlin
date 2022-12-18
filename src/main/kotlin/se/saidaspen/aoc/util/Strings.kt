@@ -6,7 +6,6 @@ fun positives(input: String) = "\\d+".toRegex(RegexOption.MULTILINE).findAll(inp
 fun longs(input: String) = "-?\\d+".toRegex(RegexOption.MULTILINE).findAll(input).map { it.value.toLong() }.toList()
 fun words(input: String) = input.trim().split("\\s+".toRegex())
 
-
 fun freqMap(chars: String): Map<Char, Int> {
     val freq: MutableMap<Char, Int> = HashMap()
     for (c in chars) {
@@ -34,3 +33,6 @@ fun String.lastIndexOfBefore(s: String, idx: Int): Int {
 fun String.sortChars() = this.toList().sorted().joinToString("")
 
 operator fun String.div(s: String) = (this.e() / s.e()).joinToString()
+
+infix fun String.notin(coll: Collection<String>) = !coll.contains(this)
+infix fun String.isIn(coll: Collection<String>) = coll.contains(this)

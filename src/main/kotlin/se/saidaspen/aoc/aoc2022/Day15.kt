@@ -2,7 +2,7 @@ package se.saidaspen.aoc.aoc2022
 
 import se.saidaspen.aoc.util.*
 
-fun main() = Day14.run()
+fun main() = Day15.run()
 
 object Day15: Day(2022, 15) {
 
