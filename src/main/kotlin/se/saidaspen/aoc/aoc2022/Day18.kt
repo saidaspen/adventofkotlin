@@ -20,11 +20,10 @@ object Day18 : Day(2022, 18) {
         while (queue.isNotEmpty()) {
             val cur = queue.removeLast()
             airBlocks.add(cur)
-            for (neighbor in cur.hexNeightbours()) {
-                if (airBlocks.contains(neighbor) || points.contains(neighbor) || queue.contains(neighbor)) continue
-                //if shortest dist from any droplet is more than two, we're expanding out into infinity
-                if (points.map { it.dist(neighbor) }.min() > 2) continue
-                queue.add(neighbor)
+            for (n in cur.hexNeightbours()) {
+                if (airBlocks.contains(n) || points.contains(n) || queue.contains(n)) continue
+                if (points.map { it.dist(n) }.min() > 2) continue // Too far from anything
+                queue.add(n)
             }
         }
 
