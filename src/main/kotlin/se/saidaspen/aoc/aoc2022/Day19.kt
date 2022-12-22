@@ -26,7 +26,7 @@ object Day19 : Day(2022, 19) {
         fun canAfford(bp: List<Int>, inv: List<Int>) = inv.withIndex().all { it.value >= bp[it.index] }
         // First four are resources, next four are robots, last one is the time left.
         val start = listOf(0, 0, 0, 0, 1, 0, 0, 0, initialTime)
-        val queue = mutableListOf(start)
+        val queue = listOf(start).toArrayDeque()
         val seen = mutableSetOf<List<Int>>()
         var best = 0
 
@@ -38,9 +38,9 @@ object Day19 : Day(2022, 19) {
         )
 
         main@while (queue.isNotEmpty()) {
-            val curr = queue.removeFirst()
-
+            val curr = queue.pop()!!
             if (seen.contains(curr)) continue // We have already checked this one
+
             val timeLeft = curr[8]
             if (timeLeft == 0) { // Time's up. Tally up.
                 best = max(best, curr[3])
@@ -62,7 +62,7 @@ object Day19 : Day(2022, 19) {
 
             // If we can afford a geo-cracking robot, build it and move on!
             if (canAfford(bps[3], currentInv)) {
-                queue.add(0, nextInventory.elemSubtract(bps[3]) + currentFactory.elemAdd(0, 0, 0, 1) + nextTime)
+                queue.push(nextInventory.elemSubtract(bps[3]) + currentFactory.elemAdd(0, 0, 0, 1) + nextTime)
                 continue@main
             }
 
@@ -73,20 +73,14 @@ object Day19 : Day(2022, 19) {
                 if (currentFactory[i] <= maxCosts[i] && canAfford(bps[i], currentInv)) {
                     val nextFactory = currentFactory.toMutableList()
                     nextFactory[i] += 1
-                    queue.add(0, nextInventory.elemSubtract(bps[i]) + nextFactory + nextTime)
+                    queue.push(nextInventory.elemSubtract(bps[i]) + nextFactory + nextTime)
                 }
             }
             // We always have the possibility of not building any robots at all
-            queue.add(0, nextInventory + currentFactory + nextTime)
+            queue.push(nextInventory + currentFactory + nextTime)
 
             seen.add(curr)
         }
         return best
     }
 }
-
-fun List<Int>.elemAdd(other: List<Int>) = this.mapIndexed { i, e -> e + other[i] }
-fun List<Int>.elemAdd(vararg other: Int) = this.mapIndexed { i, e -> e + other[i] }
-fun List<Int>.elemSubtract(other: List<Int>) = this.mapIndexed { i, e -> e - other[i] }
-fun <E> List<E>.subList(fromIndex: Int) = this.subList(fromIndex, this.size - 1)
-fun ints(input: String) = "-?\\d+".toRegex(RegexOption.MULTILINE).findAll(input).map { it.value.toInt() }.toList()
