@@ -5,6 +5,13 @@ package se.saidaspen.aoc.util
 import java.util.*
 import kotlin.math.max
 
+enum class COMPASS(val p: Point) { E(P(1, 0)), SE(P(1, 1)), S(P(0, 1)), SW(P(-1, 1)), W(P(-1, 0)), NW(P(-1, -1)), N(P(0, -1)), NE(P(1, -1));
+    fun right() = values()[(this.ordinal + 1).mod(values().size)]
+    fun left() = values()[(this.ordinal - 1).mod(values().size)]
+}
+operator fun Point.plus(compass: COMPASS) = this + compass.p
+
+
 fun toMapInt(input: String): MutableMap<P<Int, Int>, Int> {
     val lines = input.lines()
     val map = mutableMapOf<P<Int, Int>, Int>()
