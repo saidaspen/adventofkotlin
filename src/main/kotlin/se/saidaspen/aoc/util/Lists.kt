@@ -84,5 +84,13 @@ inline fun <reified T> combinations(arr: Array<T>, m: Int) = sequence {
 }
 
 fun <E> List<E>.toArrayDeque() = ArrayDeque(this)
+inline fun <T> ArrayDeque<T>.push(element: T) = addLast(element) // returns Unit
+inline fun <T> ArrayDeque<T>.pop() = removeLastOrNull()          // returns T?
+
 fun <E> List<E>.histo() = this.groupingBy { it }.eachCount()
 fun <E> MutableList<E>.rotate(i: Int) = Collections.rotate(this, i)
+
+fun List<Int>.elemAdd(other: List<Int>) = this.mapIndexed { i, e -> e + other[i] }
+fun List<Int>.elemAdd(vararg other: Int) = this.mapIndexed { i, e -> e + other[i] }
+fun List<Int>.elemSubtract(other: List<Int>) = this.mapIndexed { i, e -> e - other[i] }
+fun <E> List<E>.subList(fromIndex: Int) = this.subList(fromIndex, this.size - 1)

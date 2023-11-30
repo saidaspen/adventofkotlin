@@ -25,6 +25,51 @@ inline fun <State> bfs(start: State, isEnd: (State) -> Boolean, next: (State) ->
     return null to dist
 }
 
+data class BfsResult<out State>(val path: List<State>) {
+    val start get() = path.first()
+    val end get() = path.last()
+    val length get() = path.size - 1
+}
+
+inline fun <State> bfsPath(
+    start: State,
+    isEnd: (State) -> Boolean,
+    next: (State) -> Iterable<State>
+): BfsResult<State>? {
+    val seen = mutableSetOf(start)
+    var queue = mutableListOf(start)
+    var nextQueue = mutableListOf<State>()
+    val back = mutableMapOf<State, State>()
+    var dist = -1
+
+    while (queue.isNotEmpty()) {
+        dist++
+        for (current in queue) {
+            if (isEnd(current)) {
+                val path = mutableListOf(current)
+                var c = current
+                while (true) {
+                    c = back[c] ?: break
+                    path += c
+                }
+                return BfsResult(path)
+            }
+
+            for (i in next(current)) {
+                if (seen.add(i)) {
+                    nextQueue.add(i)
+                    back[i] = current
+                }
+            }
+        }
+        val p = nextQueue
+        nextQueue = queue
+        queue = p
+        nextQueue.clear()
+    }
+    return null
+}
+
 inline fun <State> dfs(start: State, isEnd: (State) -> Boolean, next: (State) -> Iterable<State>): Pair<State?, Int> {
     val seen = mutableSetOf(start)
     var stack = mutableListOf(start to 0)

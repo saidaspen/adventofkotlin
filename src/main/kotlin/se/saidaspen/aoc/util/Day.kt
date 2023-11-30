@@ -248,6 +248,6 @@ abstract class Day(private val year: Int, private val day: Int) {
 
     data class Submission(val value: String, val result: Result)
 
-    enum class Result { RIGHT, WRONG, TOO_LOW, TOO_HIGH }
+    enum class Result { RIGHT, WRONG, TOO_LOW, TOO_HIGH, UNDEFINED }
     enum class PART { ONE, TWO }
 }
