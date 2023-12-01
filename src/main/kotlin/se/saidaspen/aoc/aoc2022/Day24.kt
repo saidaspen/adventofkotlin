@@ -49,7 +49,7 @@ object Day24 : Day(2022, 24) {
             var newVal = "."
             if (it.value == "#")
                 newVal = "#"
-            else if (blizzards.containsKey(it.key)) {
+            else if (it.key in blizzards) {
                 newVal = blizzards[it.key]!!
             }
             it.key to newVal
