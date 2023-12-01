@@ -6,6 +6,8 @@ fun main() = Day01.run()
 
 object Day01 : Day(2023, 1) {
 
+    fun digits(input: String) = input.filter { it.isDigit() }.map { it.toString().toInt() }.toList()
+
     override fun part1() = input.lines().sumOf { digits(it)[0] * 10 + digits(it)[digits(it).size - 1] }
     override fun part2() = input.lines().sumOf { firstAndLastDigit(it) }
 
