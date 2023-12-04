@@ -123,13 +123,14 @@ abstract class Day(private val year: Int, private val day: Int) {
         }
 
         var earliestNextSubmission = LocalDateTime.now()
-        val matchResult = """Please wait (.+) before trying again.""".toRegex().find(response)
+        val matchResult = """You have (\d+m )?(\d+)s left to wait""".toRegex().find(response)
         if (matchResult != null) {
-            val (waitString: String) = matchResult.destructured
-            if (waitString == "one minute") earliestNextSubmission = LocalDateTime.now().plusMinutes(1)
-            else {
-                println(response)
-                throw RuntimeException("Wait time undefined for value '$waitString'.")
+            val timeToWait = ints(matchResult.groupValues[0])
+            if (timeToWait.size == 2) {
+                earliestNextSubmission = earliestNextSubmission.plusMinutes(timeToWait[0].toLong())
+                earliestNextSubmission = earliestNextSubmission.plusSeconds(timeToWait[1].toLong())
+            } else {
+                earliestNextSubmission = earliestNextSubmission.plusSeconds(timeToWait[1].toLong())
             }
         }
         return Pair(Submission(value, result), earliestNextSubmission)

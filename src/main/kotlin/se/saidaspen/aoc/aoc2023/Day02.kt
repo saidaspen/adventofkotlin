@@ -27,8 +27,7 @@ object Day02 : Day(2023, 2) {
             val reds = words(game).windowed(2).filter { it[1].startsWith("red") }.maxOf { it[0].toInt() }
             val greens = words(game).windowed(2).filter { it[1].startsWith("green") }.maxOf { it[0].toInt() }
             val blues = words(game).windowed(2).filter { it[1].startsWith("blue") }.maxOf { it[0].toInt() }
-            val power = reds*greens*blues
-            sum +=power
+            sum += reds * greens * blues
         }
         return sum
     }
