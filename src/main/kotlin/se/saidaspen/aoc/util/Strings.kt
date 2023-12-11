@@ -6,6 +6,14 @@ fun positives(input: String) = "\\d+".toRegex(RegexOption.MULTILINE).findAll(inp
 fun longs(input: String) = "-?\\d+".toRegex(RegexOption.MULTILINE).findAll(input).map { it.value.toLong() }.toList()
 fun words(input: String) = input.trim().split("\\s+".toRegex())
 
+fun String.replaceAll(needle: String, replacement: String): String {
+    var ret = this
+    for (c in needle.e()) {
+        ret = ret.replace(c.toString(), replacement)
+    }
+    return ret
+}
+
 fun freqMap(chars: String): Map<Char, Int> {
     val freq: MutableMap<Char, Int> = HashMap()
     for (c in chars) {

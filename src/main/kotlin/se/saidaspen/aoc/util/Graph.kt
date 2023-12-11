@@ -72,7 +72,7 @@ inline fun <State> bfsPath(
 
 inline fun <State> dfs(start: State, isEnd: (State) -> Boolean, next: (State) -> Iterable<State>): Pair<State?, Int> {
     val seen = mutableSetOf(start)
-    var stack = mutableListOf(start to 0)
+    val stack = mutableListOf(start to 0)
     var maxDist = 0
 
     while (stack.isNotEmpty()) {
